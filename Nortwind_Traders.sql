@@ -8,6 +8,7 @@ FROM
     shippers ON orders.shipperID = shippers.shipperID
 GROUP BY orders.shipperID, shippers.companyName;
 
+#Question 2
 SELECT 
     categories.categoryID,
     categories.categoryName,
@@ -21,11 +22,13 @@ FROM
 GROUP BY products.categoryID, categories.categoryName
 order by categories.categoryID ASC;
 
+#QUESTION 3
 SELECT orders.employeeID, employees.employeeName, 
  COUNT(orders.orderID) AS orders_count FROM orders JOIN employees ON orders.employeeID=employees.employeeID
  GROUP BY employees.employeeID,  employees.employeeName
  Order by employees.employeeID asc;
- 
+
+#QUESTION 4
  SELECT 
     orders.employeeID,
     employees.employeeName,
@@ -38,6 +41,7 @@ FROM
     employees ON employees.employeeID = orders.employeeID
 GROUP BY orders.employeeID , employees.employeeName;
 
+#QUESTION 5
  SELECT 
     QUARTER(orders.orderDate) AS year_quarter,
     SUM(order_details.unitPrice * order_details.quantity) AS revenue
@@ -49,20 +53,25 @@ WHERE
     YEAR(orderDate) = 2013
 GROUP BY year_quarter;
 
+#QUESTION 6
 SELECT shippers.companyName, COUNT(orders.customerID) AS customers
  FROM orders JOIN shippers ON shippers.shipperID=orders.shipperID
  GROUP BY orders.shipperID, shippers.companyName;
- 
+
+#QUESTION 7
   SELECT employees.employeeName, COUNT(orders.customerID) AS customers_processed_orders_for
  FROM orders JOIN employees ON orders.employeeID=employees.employeeID
  GROUP BY employees.employeeID, employees.employeeName;
+
+#QUESTION 8
  
  SELECT shippers.companyName, SUM(order_details.unitPrice*order_details.quantity) AS revenue_2nd_q
  FROM shippers JOIN orders ON orders.shipperID=shippers.shipperID
  JOIN order_details ON order_details.orderID=orders.orderID
  WHERE QUARTER(orders.orderDate)=2 and year(orders.orderDate)=2014
  GROUP BY shippers.companyName;
- 
+
+#QUESTION 9
 SELECT YEAR(orders.orderDate) AS yearM, MONTH(orders.orderDate) AS monthM, SUM(order_details.unitPrice*order_details.quantity) AS revenue
  FROM orders JOIN order_details ON orders.orderID=order_details.orderID
  GROUP BY yearM, monthM;
